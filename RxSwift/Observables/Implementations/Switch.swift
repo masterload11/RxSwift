@@ -35,7 +35,7 @@ class SwitchSink<S: ObservableType, O: ObserverType where S.E == O.E> : Sink<O>,
         return CompositeDisposable(subscriptions, innerSubscription)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let observable):
             let latest: Int = self.lock.calculateLocked {
@@ -84,7 +84,7 @@ class SwitchSinkIter<S: ObservableType, O: ObserverType where S.E == O.E> : Obse
         self._self = _self
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         return parent.lock.calculateLocked {
             
             switch event {

@@ -11,9 +11,9 @@ import RxSwift
 
 struct Recorded<Element : Equatable> : CustomStringConvertible, Equatable {
     let time: Time
-    let event: Event<Element>
+    let event: RxEvent<Element>
     
-    init(time: Time, event: Event<Element>) {
+    init(time: Time, event: RxEvent<Element>) {
         self.time = time
         self.event = event
     }

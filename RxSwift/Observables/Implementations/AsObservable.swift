@@ -15,7 +15,7 @@ class AsObservableSink<O: ObserverType> : Sink<O>, ObserverType {
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         observer?.on(event)
         
         switch event {

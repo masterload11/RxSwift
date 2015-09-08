@@ -17,7 +17,7 @@ class ObserverBase<ElementType> : Disposable, ObserverType {
     init() {
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next:
             if isStopped == 0 {
@@ -33,7 +33,7 @@ class ObserverBase<ElementType> : Disposable, ObserverType {
         }
     }
     
-    func onCore(event: Event<E>) {
+    func onCore(event: RxEvent<E>) {
         return abstractMethod()
     }
     

@@ -62,7 +62,7 @@ class BufferTimeCountSink<S: SchedulerType, Element, O: ObserverType where O.E =
         createTimer(windowID)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         self.lock.performLocked {
             switch event {
             case .Next(let element):

@@ -26,7 +26,7 @@ class PrimitiveHotObservable<ElementType : Equatable> : Observable<ElementType>,
         super.init()
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         observers.forEach { $0.on(event) }
     }
     

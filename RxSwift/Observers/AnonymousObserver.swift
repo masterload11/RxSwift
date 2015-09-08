@@ -11,7 +11,7 @@ import Foundation
 class AnonymousObserver<ElementType> : ObserverBase<ElementType> {
     typealias Element = ElementType
     
-    typealias EventHandler = Event<Element> -> Void
+    typealias EventHandler = RxEvent<Element> -> Void
     
     private let eventHandler : EventHandler
     
@@ -22,7 +22,8 @@ class AnonymousObserver<ElementType> : ObserverBase<ElementType> {
         self.eventHandler = eventHandler
     }
 
-    override func onCore(event: Event<Element>) {
+
+    override func onCore(event: RxEvent<Element>) {
         return self.eventHandler(event)
     }
     

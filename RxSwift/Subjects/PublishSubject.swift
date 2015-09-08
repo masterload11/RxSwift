@@ -55,7 +55,7 @@ public class PublishSubject<Element> : Observable<Element>, SubjectType, Cancela
     // state
     var _disposed = false
     var observers = Bag<ObserverOf<Element>>()
-    var stoppedEvent = nil as Event<Element>?
+    var stoppedEvent = nil as RxEvent<Element>?
     
     /**
     Indicates whether the subject has been disposed.
@@ -80,7 +80,7 @@ public class PublishSubject<Element> : Observable<Element>, SubjectType, Cancela
     
     - parameter event: Event to send to the observers.
     */
-    public func on(event: Event<Element>) {
+    public func on(event: RxEvent<Element>) {
         lock.performLocked {
             switch event {
             case .Next(_):

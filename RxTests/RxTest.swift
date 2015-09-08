@@ -113,7 +113,7 @@ class RxTest: XCTestCase {
 #endif
     }
     
-    func on<T>(time: Time, _ event: Event<T>) -> Recorded<T> {
+    func on<T>(time: Time, _ event: RxEvent<T>) -> Recorded<T> {
         return Recorded(time: time, event: event)
     }
     

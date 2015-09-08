@@ -37,7 +37,7 @@ class MySubject<Element where Element : Hashable> : Observable<Element>, Subject
         _disposeOn[value] = disposable
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         _observer.on(event)
         switch event {
         case .Next(let value):

@@ -51,7 +51,7 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
     
     var state = ObserveOnState.Stopped
     
-    var queue = Queue<Event<E>>(capacity: 10)
+    var queue = Queue<RxEvent<E>>(capacity: 10)
     let scheduleDisposable = SerialDisposable()
     
     init(scheduler: ImmediateSchedulerType, observer: O, cancel: Disposable) {
@@ -60,7 +60,7 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
         self.observer = observer
     }
 
-    override func onCore(event: Event<E>) {
+    override func onCore(event: RxEvent<E>) {
         let shouldStart = lock.calculateLocked { () -> Bool in
             self.queue.enqueue(event)
             
@@ -79,7 +79,7 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
     }
     
     func run(state: Void, recurse: Void -> Void) {
-        let (nextEvent, observer) = self.lock.calculateLocked { () -> (Event<E>?, O?) in
+        let (nextEvent, observer) = self.lock.calculateLocked { () -> (RxEvent<E>?, O?) in
             if self.queue.count > 0 {
                 return (self.queue.dequeue(), self.observer)
             }

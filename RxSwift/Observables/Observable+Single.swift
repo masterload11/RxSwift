@@ -69,7 +69,7 @@ extension ObservableType {
     - parameter eventHandler: Action to invoke for each event in the observable sequence.
     - returns: The source sequence with the side-effecting behavior applied.
     */
-    public func doOn(eventHandler: (Event<E>) throws -> Void)
+    public func doOn(eventHandler: (RxEvent<E>) throws -> Void)
         -> Observable<E> {
         return Do(source: self.asObservable(), eventHandler: eventHandler)
     }

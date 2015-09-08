@@ -19,7 +19,7 @@ class DelaySubscriptionSink<ElementType, O: ObserverType, S: SchedulerType where
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         observer?.on(event)
         if event.isStopEvent {
             self.dispose()
