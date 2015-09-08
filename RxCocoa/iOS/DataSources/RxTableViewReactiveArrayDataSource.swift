@@ -45,7 +45,7 @@ class RxTableViewReactiveArrayDataSourceSequenceWrapper<S: SequenceType> : RxTab
         super.init(cellFactory: cellFactory)
     }
     
-    func tableView(tableView: UITableView, observedEvent: Event<S>) {
+    func tableView(tableView: UITableView, observedEvent: RxEvent<S>) {
         switch observedEvent {
         case .Next(let value):
             super.tableView(tableView, observedElements: Array(value))

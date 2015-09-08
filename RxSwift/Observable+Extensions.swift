@@ -9,7 +9,7 @@
 import Foundation
 
 extension ObservableType {
-    public func subscribe(on: (event: Event<E>) -> Void)
+    public func subscribe(on: (event: RxEvent<E>) -> Void)
         -> Disposable {
         let observer = AnonymousObserver { e in
             on(event: e)

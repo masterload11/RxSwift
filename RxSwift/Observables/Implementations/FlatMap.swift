@@ -24,7 +24,7 @@ class FlatMapSinkIter<SourceType, S: ObservableType, O: ObserverType where O.E =
         self.disposeKey = disposeKey
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             parent.lock.performLocked {
@@ -74,7 +74,7 @@ class FlatMapSink<SourceType, S: ObservableType, O: ObserverType where O.E == S.
         return abstractMethod()
     }
     
-    func on(event: Event<SourceType>) {
+    func on(event: RxEvent<SourceType>) {
         let observer = super.observer
         
         switch event {

@@ -125,7 +125,7 @@ class CombineLatestObserver<ElementType> : ObserverType {
         self.setLatestValue = setLatestValue
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         lock.performLocked {
             switch event {
             case .Next(let value):

@@ -16,5 +16,5 @@ import RxSwift
 public protocol RxTableViewDataSourceType /*: UITableViewDataSource*/ {
     typealias Element
     
-    func tableView(tableView: UITableView, observedEvent: Event<Element>) -> Void
+    func tableView(tableView: UITableView, observedEvent: RxEvent<Element>) -> Void
 }

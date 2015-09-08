@@ -20,7 +20,7 @@ class CatchSinkProxy<O: ObserverType> : ObserverType {
         self.parent = parent
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         parent.observer?.on(event)
         
         switch event {
@@ -54,7 +54,7 @@ class CatchSink<O: ObserverType> : Sink<O>, ObserverType {
         return subscription
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next:
             observer?.on(event)
@@ -113,7 +113,7 @@ class CatchToResultSink<ElementType> : Sink<ObserverOf<RxResult<ElementType>>>, 
         return parent.source.subscribeSafe(self)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             observer?.on(.Next(success(value)))
@@ -154,7 +154,7 @@ class CatchSequenceSink<S: SequenceType, O: ObserverType where S.Generator.Eleme
         super.init(observer: observer, cancel: cancel)
     }
     
-    override func on(event: Event<Element>) {
+    override func on(event: RxEvent<Element>) {
         switch event {
         case .Next:
             observer?.on(event)

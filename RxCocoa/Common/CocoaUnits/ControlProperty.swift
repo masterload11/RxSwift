@@ -50,7 +50,7 @@ public struct ControlProperty<PropertyType> : ControlPropertyType {
         return self
     }
  
-    public func on(event: Event<E>) {
+    public func on(event: RxEvent<E>) {
         switch event {
         case .Error(let error):
             bindingErrorToInterface(error)

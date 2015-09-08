@@ -17,7 +17,7 @@ class SamplerSink<O: ObserverType, ElementType, SampleType where O.E == ElementT
         self.parent = parent
     }
     
-    override func on(event: Event<E>) {
+    override func on(event: RxEvent<E>) {
         parent.lock.performLocked {
             switch event {
             case .Next:
@@ -75,7 +75,7 @@ class SampleSequenceSink<O: ObserverType, SampleType> : Sink<O>, ObserverType {
         return CompositeDisposable(sourceSubscription, samplerSubscription)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         self.lock.performLocked {
             switch event {
             case .Next(let element):

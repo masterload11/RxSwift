@@ -57,7 +57,7 @@ class TailRecursiveSink<S: SequenceType, O: ObserverType where S.Generator.Eleme
         return abstractMethod()
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         return abstractMethod()
     }
     

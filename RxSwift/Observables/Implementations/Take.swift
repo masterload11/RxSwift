@@ -24,7 +24,7 @@ class TakeCountSink<ElementType, O: ObserverType where O.E == ElementType> : Sin
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             
@@ -79,7 +79,7 @@ class TakeTimeSink<ElementType, S: Scheduler, O: ObserverType where O.E == Eleme
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         lock.performLocked {
             switch event {
             case .Next(let value):

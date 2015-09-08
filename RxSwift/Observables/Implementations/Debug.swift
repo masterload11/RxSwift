@@ -19,7 +19,7 @@ class Debug_<O: ObserverType> : Sink<O>, ObserverType {
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         let maxEventTextLength = 40
         let eventText = "\(event)"
         let eventNormalized = eventText.characters.count > maxEventTextLength

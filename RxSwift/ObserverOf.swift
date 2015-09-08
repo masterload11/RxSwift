@@ -11,7 +11,7 @@ import Foundation
 public struct ObserverOf<Element> : ObserverType {
     public typealias E = Element
     
-    public typealias SinkType = (Event<Element>) -> Void
+    public typealias SinkType = (RxEvent<Element>) -> Void
 
     public let sink: SinkType
 
@@ -28,7 +28,7 @@ public struct ObserverOf<Element> : ObserverType {
     }
     
     /// Send `event` to this observer.
-    public func on(event: Event<Element>) {
+    public func on(event: RxEvent<Element>) {
         return self.sink(event)
     }
 }

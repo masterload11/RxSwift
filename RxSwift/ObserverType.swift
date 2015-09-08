@@ -13,6 +13,6 @@ public protocol ObserverType {
     typealias E
 
     /// Send `event` to this observer.
-    func on(event: Event<E>)
+    func on(event: RxEvent<E>)
 }
 

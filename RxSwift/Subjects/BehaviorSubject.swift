@@ -39,7 +39,7 @@ public class BehaviorSubject<Element> : Observable<Element>, SubjectType, Observ
     // state
     private var _value: Element
     private var observers = Bag<ObserverOf<Element>>()
-    private var stoppedEvent: Event<Element>?
+    private var stoppedEvent: RxEvent<Element>?
  
     public init(value: Element) {
         self._value = value
@@ -58,7 +58,7 @@ public class BehaviorSubject<Element> : Observable<Element>, SubjectType, Observ
         }
     }
 
-    public func on(event: Event<E>) {
+    public func on(event: RxEvent<E>) {
         lock.performLocked {
             if self.stoppedEvent != nil {
                 return

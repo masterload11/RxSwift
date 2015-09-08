@@ -154,14 +154,14 @@ func installDelegate<P: DelegateProxyType>(proxy: P, delegate: AnyObject, retain
 }
 
 extension ObservableType {
-    func subscribeProxyDataSourceForObject<P: DelegateProxyType>(object: AnyObject, dataSource: AnyObject, retainDataSource: Bool, binding: (P, Event<E>) -> Void)
+    func subscribeProxyDataSourceForObject<P: DelegateProxyType>(object: AnyObject, dataSource: AnyObject, retainDataSource: Bool, binding: (P, RxEvent<E>) -> Void)
         -> Disposable {
         let proxy: P = proxyForObject(object)
         let disposable = installDelegate(proxy, delegate: dataSource, retainDelegate: retainDataSource, onProxyForObject: object)
         
         // we should never let the subscriber to complete because it should retain data source
         let source = sequenceOf(self.asObservable(), never()) as Observable<Observable<E>>
-        let subscription = source.concat().subscribe { (event: Event<E>) in
+        let subscription = source.concat().subscribe { (event: RxEvent<E>) in
             MainScheduler.ensureExecutingOnScheduler()
             
             assert(proxy === P.currentDelegateFor(object), "Proxy changed from the time it was first set.\nOriginal: \(proxy)\nExisting: \(P.currentDelegateFor(object))")

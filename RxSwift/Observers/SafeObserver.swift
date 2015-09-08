@@ -20,7 +20,7 @@ class SafeObserver<O: ObserverType> : Observer<O.E> {
         super.init()
     }
     
-    override func on(event: Event<Element>) {
+    override func on(event: RxEvent<Element>) {
         observer.on(event)
         
         switch event {

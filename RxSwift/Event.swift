@@ -12,7 +12,7 @@ import Foundation
 /**
 *   Represents event that happened
 */
-public enum Event<Element> : CustomStringConvertible {
+public enum RxEvent<Element> : CustomStringConvertible {
     case Next(Element) // next element of a sequence
     case Error(ErrorType)   // sequence failed with error
     case Completed          // sequence terminated successfully
@@ -31,7 +31,7 @@ public enum Event<Element> : CustomStringConvertible {
     }
 }
 
-public func eventType<T>(event: Event<T>) -> String {
+public func eventType<T>(event: RxEvent<T>) -> String {
     switch event {
     case .Next:
         return "Next: \(event)"
@@ -42,7 +42,7 @@ public func eventType<T>(event: Event<T>) -> String {
     }
 }
 
-public func == <T: Equatable>(lhs: Event<T>, rhs: Event<T>) -> Bool {
+public func == <T: Equatable>(lhs: RxEvent<T>, rhs: RxEvent<T>) -> Bool {
     switch (lhs, rhs) {
     case (.Completed, .Completed): return true
     // really stupid fix for now
@@ -52,7 +52,7 @@ public func == <T: Equatable>(lhs: Event<T>, rhs: Event<T>) -> Bool {
     }
 }
 
-extension Event {
+extension RxEvent {
     public var isStopEvent: Bool {
         get {
             switch self {

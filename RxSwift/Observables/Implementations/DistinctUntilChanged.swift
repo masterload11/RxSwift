@@ -19,7 +19,7 @@ class DistinctUntilChangedSink<O: ObserverType, Key>: Sink<O>, ObserverType {
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         let observer = super.observer
         
         switch event {

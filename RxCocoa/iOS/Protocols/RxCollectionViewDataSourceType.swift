@@ -16,5 +16,5 @@ import RxSwift
 public protocol RxCollectionViewDataSourceType /*: UICollectionViewDataSource*/ {
     typealias Element
     
-    func collectionView(collectionView: UICollectionView, observedEvent: Event<Element>) -> Void
+    func collectionView(collectionView: UICollectionView, observedEvent: RxEvent<Element>) -> Void
 }

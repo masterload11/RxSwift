@@ -21,7 +21,7 @@ class TakeWhileSink1<ElementType, O: ObserverType where O.E == ElementType> : Si
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         if !running {
             return
         }
@@ -62,7 +62,7 @@ class TakeWhileSink2<ElementType, O: ObserverType where O.E == ElementType> : Si
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         if !running {
             return
         }

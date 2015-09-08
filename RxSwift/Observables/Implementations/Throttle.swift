@@ -33,7 +33,7 @@ class ThrottleSink<O: ObserverType, SchedulerType: Scheduler> : Sink<O>, Observe
         return CompositeDisposable(subscription, cancellable)
     }
 
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         switch event {
         case .Next:
             break

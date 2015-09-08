@@ -121,7 +121,7 @@ class ZipObserver<ElementType> : ObserverType {
         self.setNextValue = setNextValue
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
        
         if let _ = parent {
             switch event {

@@ -15,6 +15,6 @@ public class NopObserver<ElementType> : ObserverType {
         
     }
     
-    public func on(event: Event<Element>) {
+    public func on(event: RxEvent<Element>) {
     }
 }

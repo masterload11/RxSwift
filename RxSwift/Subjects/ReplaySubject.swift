@@ -18,7 +18,7 @@ public class ReplaySubject<Element> : Observable<Element>, SubjectType, Observer
         return abstractMethod()
     }
     
-    public func on(event: Event<E>) {
+    public func on(event: RxEvent<E>) {
         return abstractMethod()
     }
     
@@ -45,7 +45,7 @@ class ReplayBufferBase<Element> : ReplaySubject<Element> {
     
     // state
     var disposed = false
-    var stoppedEvent = nil as Event<Element>?
+    var stoppedEvent = nil as RxEvent<Element>?
     var observers = Bag<ObserverOf<Element>>()
     
     override init() {
@@ -64,7 +64,7 @@ class ReplayBufferBase<Element> : ReplaySubject<Element> {
         return abstractMethod()
     }
     
-    override func on(event: Event<Element>) {
+    override func on(event: RxEvent<Element>) {
         lock.performLocked {
             if self.disposed {
                 return

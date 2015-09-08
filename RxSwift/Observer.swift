@@ -18,7 +18,7 @@ public class Observer<ElementType> : ObserverType {
 #endif
     }
     
-    public func on(event: Event<E>) {
+    public func on(event: RxEvent<E>) {
         return abstractMethod()
     }
     

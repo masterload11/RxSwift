@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8B123162C394A0A0A138779108E4C59DD771865A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8B123162C394A0A0A138779108E4C59DD771865A" : 0,
+    "54450C21EDE89D5FAF7B7B353913149EF9D110C0" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E216AAAE-B20A-4098-AFCA-0F8D7254CB10",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8B123162C394A0A0A138779108E4C59DD771865A" : "RxSwift\/",
+    "54450C21EDE89D5FAF7B7B353913149EF9D110C0" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Rx",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Rx.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:eure\/couples-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "54450C21EDE89D5FAF7B7B353913149EF9D110C0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ReactiveX\/RxSwift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8B123162C394A0A0A138779108E4C59DD771865A"
+    }
+  ]
+}

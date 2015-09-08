@@ -18,7 +18,7 @@ class ObserverBase<ElementType> : Observer<ElementType>, Disposable {
         super.init()
     }
     
-    override func on(event: Event<Element>) {
+    override func on(event: RxEvent<Element>) {
         switch event {
         case .Next:
             if !isStopped {
@@ -38,7 +38,7 @@ class ObserverBase<ElementType> : Observer<ElementType>, Disposable {
         }
     }
     
-    func onCore(event: Event<Element>) {
+    func onCore(event: RxEvent<Element>) {
         return abstractMethod()
     }
     

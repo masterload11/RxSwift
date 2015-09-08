@@ -39,7 +39,7 @@ class MulticastSink<S: SubjectType, O: ObserverType>: Sink<O>, ObserverType {
         }
     }
     
-    func on(event: Event<ResultType>) {
+    func on(event: RxEvent<ResultType>) {
         observer?.on(event)
         switch event {
             case .Next: break

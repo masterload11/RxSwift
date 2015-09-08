@@ -13,6 +13,6 @@ class DoneObserver<ElementType> : ObserverType {
     
     //static let Instance = DoneObserver<ValueType, ErrorType>()
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
     }
 }

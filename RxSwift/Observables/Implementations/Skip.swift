@@ -24,7 +24,7 @@ class SkipCountSink<ElementType, O: ObserverType where O.E == ElementType> : Sin
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         switch event {
         case .Next(let value):
             
@@ -77,7 +77,7 @@ class SkipTimeSink<ElementType, S: Scheduler, O: ObserverType where O.E == Eleme
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         lock.performLocked {
             switch event {
             case .Next(let value):

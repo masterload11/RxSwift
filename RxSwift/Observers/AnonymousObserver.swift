@@ -11,7 +11,7 @@ import Foundation
 public class AnonymousObserver<ElementType> : ObserverBase<ElementType> {
     public typealias Element = ElementType
     
-    public typealias EventHandler = Event<Element> -> Void
+    public typealias EventHandler = RxEvent<Element> -> Void
     
     private let eventHandler : EventHandler
     
@@ -26,7 +26,7 @@ public class AnonymousObserver<ElementType> : ObserverBase<ElementType> {
         return AnonymousSafeObserver(self.eventHandler, disposable: disposable)
     }
 
-    public override func onCore(event: Event<Element>) {
+    public override func onCore(event: RxEvent<Element>) {
         return self.eventHandler(event)
     }
     
@@ -40,7 +40,7 @@ public class AnonymousObserver<ElementType> : ObserverBase<ElementType> {
 public class AnonymousSafeObserver<ElementType> : Observer<ElementType> {
     public typealias Element = ElementType
     
-    public typealias EventHandler = Event<Element> -> Void
+    public typealias EventHandler = RxEvent<Element> -> Void
     
     private let eventHandler : EventHandler
     private let disposable: Disposable
@@ -55,7 +55,7 @@ public class AnonymousSafeObserver<ElementType> : Observer<ElementType> {
         self.disposable = disposable
     }
     
-    public override func on(event: Event<Element>) {
+    public override func on(event: RxEvent<Element>) {
         switch event {
         case .Next:
             if stopped == 0 {

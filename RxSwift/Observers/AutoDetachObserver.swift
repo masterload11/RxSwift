@@ -24,7 +24,7 @@ class AutoDetachObserver<O: ObserverType> : ObserverBase<O.E> {
         m.disposable = disposable
     }
     
-    override func onCore(event: Event<Element>) {
+    override func onCore(event: RxEvent<Element>) {
         let observer = self.observerLock.calculateLocked {
             return self.observer
         }

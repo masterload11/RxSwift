@@ -21,16 +21,16 @@ class ObserveSingleOnObserver<O: ObserverType> : Sink<O>, ObserverType {
     
     let parent: Parent
    
-    var lastElement: Event<Element>? = nil
+    var lastElement: RxEvent<Element>? = nil
     
     init(parent: Parent, observer: O, cancel: Disposable) {
         self.parent = parent
         super.init(observer: observer, cancel: cancel)
     }
  
-    func on(event: Event<Element>) {
-        var elementToForward: Event<Element>?
-        var stopEventToForward: Event<Element>?
+    func on(event: RxEvent<Element>) {
+        var elementToForward: RxEvent<Element>?
+        var stopEventToForward: RxEvent<Element>?
         
         _ = self.parent.scheduler
         

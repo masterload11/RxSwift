@@ -37,7 +37,7 @@ extension ObservableType {
 // do
 
 extension ObservableType {
-    public func doOn(eventHandler: (Event<E>) throws -> Void)
+    public func doOn(eventHandler: (RxEvent<E>) throws -> Void)
         -> Observable<E> {
         return Do(source: self.asObservable(), eventHandler: eventHandler)
     }

@@ -51,7 +51,7 @@ public class PublishSubject<Element> : Observable<Element>, SubjectType, Cancela
     // state
     var _disposed = false
     var observers = Bag<ObserverOf<Element>>()
-    var stoppedEvent = nil as Event<Element>?
+    var stoppedEvent = nil as RxEvent<Element>?
     
     public var disposed: Bool {
         get {
@@ -72,7 +72,7 @@ public class PublishSubject<Element> : Observable<Element>, SubjectType, Cancela
         }
     }
     
-    public func on(event: Event<Element>) {
+    public func on(event: RxEvent<Element>) {
         lock.performLocked {
             switch event {
             case .Next(_):
