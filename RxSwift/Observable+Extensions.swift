@@ -16,7 +16,7 @@ extension ObservableType {
     - returns: Subscription object used to unsubscribe from the observable sequence.
     */
     @warn_unused_result(message="http://git.io/rxs.ud")
-    public func subscribe(on: (event: Event<E>) -> Void)
+    public func subscribe(on: (event: RxEvent<E>) -> Void)
         -> Disposable {
         let observer = AnonymousObserver { e in
             on(event: e)

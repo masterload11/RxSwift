@@ -30,11 +30,11 @@ class MergeSinkIter<S: ObservableConvertibleType, O: ObserverType where O.E == S
         _disposeKey = disposeKey
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next:
             _parent.forwardOn(event)
@@ -85,7 +85,7 @@ class MergeSink<S: ObservableConvertibleType, O: ObserverType where O.E == S.E>
         return _group
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         if case .Next(let value) = event {
             let innerSubscription = SingleAssignmentDisposable()
             let maybeKey = _group.addDisposable(innerSubscription)
@@ -102,7 +102,7 @@ class MergeSink<S: ObservableConvertibleType, O: ObserverType where O.E == S.E>
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next:
             rxFatalError("Next should have been handled")
@@ -145,11 +145,11 @@ class MergeConcurrentSinkIter<S: ObservableConvertibleType, O: ObserverType wher
         _disposeKey = disposeKey
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next:
             _parent.forwardOn(event)
@@ -224,11 +224,11 @@ class MergeConcurrentSink<S: ObservableConvertibleType, O: ObserverType where S.
         }
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             let subscribe: Bool

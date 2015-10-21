@@ -39,11 +39,11 @@ class SwitchSink<S: ObservableConvertibleType, O: ObserverType where S.E == O.E>
         return StableCompositeDisposable.create(_subscriptions, _innerSubscription)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next(let observable):
             _hasLatest = true
@@ -93,11 +93,11 @@ class SwitchSinkIter<S: ObservableConvertibleType, O: ObserverType where S.E == 
         self._self = _self
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next: break
         case .Error, .Completed:

@@ -252,7 +252,7 @@ extension Bag where T: ObserverType {
 
      - parameter action: Enumeration closure.
      */
-    public func on(event: Event<T.E>) {
+    public func on(event: RxEvent<T.E>) {
         let pairs = self._pairs
         let value0 = _value0
         let value1 = _value1

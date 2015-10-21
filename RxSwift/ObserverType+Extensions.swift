@@ -9,7 +9,7 @@
 import Foundation
 
 @available(*, deprecated=2.0.0, message="Please use observer.on(event)")
-public func send<O: ObserverType>(observer: O, _ event: Event<O.E>) {
+public func send<O: ObserverType>(observer: O, _ event: RxEvent<O.E>) {
     observer.on(event)
 }
 

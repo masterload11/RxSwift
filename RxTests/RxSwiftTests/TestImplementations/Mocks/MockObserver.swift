@@ -20,7 +20,7 @@ class MockObserver<ElementType : Equatable> : ObserverType {
         self.messages = []
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         messages.append(Recorded(time: scheduler.now, event: event))
     }
 }

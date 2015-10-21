@@ -26,11 +26,11 @@ class SamplerSink<O: ObserverType, ElementType, SampleType where O.E == ElementT
         _parent = parent
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next:
             if let element = _parent._element {
@@ -91,11 +91,11 @@ class SampleSequenceSink<O: ObserverType, SampleType>
         return StableCompositeDisposable.create(_sourceSubscription, samplerSubscription)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<Element>) {
+    func _synchronized_on(event: RxEvent<Element>) {
         switch event {
         case .Next(let element):
             _element = element

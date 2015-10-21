@@ -11,7 +11,7 @@ import Foundation
 class Sink<O : ObserverType> : SingleAssignmentDisposable {
     private let _observer: O
 
-    func forwardOn(event: Event<O.E>) {
+    func forwardOn(event: RxEvent<O.E>) {
         if disposed {
             return
         }
