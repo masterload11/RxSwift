@@ -38,7 +38,7 @@ class TimeoutSink<ElementType, O: ObserverType where O.E == ElementType>: Sink<O
         return StableCompositeDisposable.create(_subscription, _timerD)
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next:
             var onNextWins = false

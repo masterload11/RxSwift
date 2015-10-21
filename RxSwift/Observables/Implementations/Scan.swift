@@ -21,7 +21,7 @@ class ScanSink<ElementType, Accumulate, O: ObserverType where O.E == Accumulate>
         super.init(observer: observer)
     }
     
-    func on(event: Event<ElementType>) {
+    func on(event: RxEvent<ElementType>) {
         switch event {
         case .Next(let element):
             do {

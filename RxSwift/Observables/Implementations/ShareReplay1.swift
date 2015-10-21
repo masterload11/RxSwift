@@ -23,7 +23,7 @@ final class ShareReplay1<Element>
     private var _connection: SingleAssignmentDisposable?
     private var _element: Element?
     private var _stopped = false
-    private var _stopEvent = nil as Event<Element>?
+    private var _stopEvent = nil as RxEvent<Element>?
     private var _observers = Bag<AnyObserver<Element>>()
 
     init(source: Observable<Element>) {
@@ -31,7 +31,9 @@ final class ShareReplay1<Element>
     }
 
     override func subscribe<O : ObserverType where O.E == E>(observer: O) -> Disposable {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         return _synchronized_subscribe(observer)
     }
 
@@ -60,7 +62,9 @@ final class ShareReplay1<Element>
     }
 
     func synchronizedUnsubscribe(disposeKey: DisposeKey) {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_unsubscribe(disposeKey)
     }
 
@@ -76,12 +80,14 @@ final class ShareReplay1<Element>
         }
     }
 
-    func on(event: Event<E>) {
-        _lock.lock(); defer { _lock.unlock() }
+    func on(event: RxEvent<E>) {
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_on(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         if _stopped {
             return
         }

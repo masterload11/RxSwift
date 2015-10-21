@@ -21,7 +21,7 @@ class DelaySubscriptionSink<ElementType, O: ObserverType where O.E == ElementTyp
         super.init(observer: observer)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         forwardOn(event)
         if event.isStopEvent {
             dispose()

@@ -23,7 +23,7 @@ class ObserveOnSerialDispatchQueueSink<O: ObserverType> : ObserverBase<O.E> {
     
     let subscription = SingleAssignmentDisposable()
 
-    var cachedScheduleLambda: ((ObserveOnSerialDispatchQueueSink<O>, Event<E>) -> Disposable)!
+    var cachedScheduleLambda: ((ObserveOnSerialDispatchQueueSink<O>, RxEvent<E>) -> Disposable)!
 
     init(scheduler: SerialDispatchQueueScheduler, observer: O) {
         self.scheduler = scheduler
@@ -41,7 +41,7 @@ class ObserveOnSerialDispatchQueueSink<O: ObserverType> : ObserverBase<O.E> {
         }
     }
 
-    override func onCore(event: Event<E>) {
+    override func onCore(event: RxEvent<E>) {
         self.scheduler.schedule((self, event), action: cachedScheduleLambda)
     }
    

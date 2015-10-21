@@ -53,11 +53,11 @@ class WindowTimeCountSink<Element, O: ObserverType where O.E == Observable<Eleme
         forwardOn(.Next(AddRef(source: _subject, refCount: _refCountDisposable).asObservable()))
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         var newWindow = false
         var newId = 0
         

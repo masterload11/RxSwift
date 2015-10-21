@@ -29,7 +29,7 @@ class PrimitiveHotObservable<ElementType> : ObservableType {
         self.observers = Bag()
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         lock.lock()
         defer { lock.unlock() }
         observers.on(event)

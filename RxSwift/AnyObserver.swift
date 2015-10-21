@@ -22,7 +22,7 @@ public struct AnyObserver<Element> : ObserverType {
     /**
     Anonymous event handler type.
     */
-    public typealias EventHandler = (Event<Element>) -> Void
+    public typealias EventHandler = (RxEvent<Element>) -> Void
 
     public let observer: EventHandler
 
@@ -49,7 +49,7 @@ public struct AnyObserver<Element> : ObserverType {
     
     - parameter event: Event instance.
     */
-    public func on(event: Event<Element>) {
+    public func on(event: RxEvent<Element>) {
         return self.observer(event)
     }
 

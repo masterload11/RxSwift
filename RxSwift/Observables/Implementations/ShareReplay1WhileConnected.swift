@@ -70,12 +70,12 @@ final class ShareReplay1WhileConnected<Element>
         }
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         _lock.lock(); defer { _lock.unlock() }
         _synchronized_on(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next(let element):
             _element = element

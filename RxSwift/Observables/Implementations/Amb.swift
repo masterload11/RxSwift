@@ -18,7 +18,7 @@ class AmbObserver<ElementType, O: ObserverType where O.E == ElementType> : Obser
     typealias Element = ElementType
     typealias Parent = AmbSink<ElementType, O>
     typealias This = AmbObserver<ElementType, O>
-    typealias Sink = (This, Event<Element>) -> Void
+    typealias Sink = (This, RxEvent<Element>) -> Void
     
     private let _parent: Parent
     private var _sink: Sink
@@ -34,7 +34,7 @@ class AmbObserver<ElementType, O: ObserverType where O.E == ElementType> : Obser
         _cancel = cancel
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         _sink(self, event)
         if event.isStopEvent {
             _cancel.dispose()
@@ -68,11 +68,11 @@ class AmbSink<ElementType, O: ObserverType where O.E == ElementType> : Sink<O> {
         let subscription2 = SingleAssignmentDisposable()
         let disposeAll = StableCompositeDisposable.create(subscription1, subscription2)
         
-        let forwardEvent = { (o: AmbObserverType, event: Event<ElementType>) -> Void in
+        let forwardEvent = { (o: AmbObserverType, event: RxEvent<ElementType>) -> Void in
             self.forwardOn(event)
         }
         
-        let decide = { (o: AmbObserverType, event: Event<ElementType>, me: AmbState, otherSubscription: Disposable) in
+        let decide = { (o: AmbObserverType, event: RxEvent<ElementType>, me: AmbState, otherSubscription: Disposable) in
             self._lock.performLocked {
                 if self._choice == .Neither {
                     self._choice = me

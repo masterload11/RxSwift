@@ -22,7 +22,7 @@ class ReduceSink<SourceType, AccumulateType, O: ObserverType> : Sink<O>, Observe
         super.init(observer: observer)
     }
     
-    func on(event: Event<SourceType>) {
+    func on(event: RxEvent<SourceType>) {
         switch event {
         case .Next(let value):
             do {

@@ -126,11 +126,11 @@ class ZipObserver<ElementType>
         _setNextValue = setNextValue
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         if let _ = _parent {
             switch event {
             case .Next(_):

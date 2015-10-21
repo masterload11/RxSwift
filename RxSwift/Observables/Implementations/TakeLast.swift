@@ -23,7 +23,7 @@ class TakeLastSink<ElementType, O: ObserverType where O.E == ElementType> : Sink
         super.init(observer: observer)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             _elements.enqueue(value)

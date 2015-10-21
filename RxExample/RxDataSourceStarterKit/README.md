@@ -9,7 +9,7 @@ Reactive data sources are normal data sources + one additional method
 
 ```swift
 
-func view(view: UIXXXView, observedEvent: Event<Element>) {}
+func view(view: UIXXXView, observedEvent: RxEvent<Element>) {}
 
 ```
 

@@ -107,25 +107,37 @@ protocol Lock {
 
 extension NSRecursiveLock : Lock {
     func performLocked(@noescape action: () -> Void) {
-        self.lock()
-        action()
-        self.unlock()
+        if #available(iOS 8.0, *) {
+            self.lock()
+            action()
+            self.unlock()
+        } else {
+            action()
+        }
     }
 
     func calculateLocked<T>(@noescape action: () -> T) -> T {
-        self.lock()
-        let result = action()
-        self.unlock()
-        return result
+        if #available(iOS 8.0, *) {
+            self.lock()
+            let result = action()
+            self.unlock()
+            return result
+        } else {
+            return action()
+        }
     }
 
     func calculateLockedOrFail<T>(@noescape action: () throws -> T) throws -> T {
-        self.lock()
-        defer {
+        if #available(iOS 8.0, *) {
+            self.lock()
+            defer {
             self.unlock()
+            }
+            let result = try action()
+            return result
+        } else {
+            return try action()
         }
-        let result = try action()
-        return result
     }
 }
 

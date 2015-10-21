@@ -17,7 +17,7 @@ class RxCollectionViewSectionedReloadDataSource<S: SectionModelType> : RxCollect
                                                                      , RxCollectionViewDataSourceType {
     typealias Element = [S]
     
-    func collectionView(collectionView: UICollectionView, observedEvent: Event<Element>) {
+    func collectionView(collectionView: UICollectionView, observedEvent: RxEvent<Element>) {
         switch observedEvent {
         case .Next(let element):
             setSections(element)

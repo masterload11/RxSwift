@@ -24,7 +24,7 @@ class TakeCountSink<ElementType, O: ObserverType where O.E == ElementType> : Sin
         super.init(observer: observer)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             
@@ -87,11 +87,11 @@ class TakeTimeSink<ElementType, O: ObserverType where O.E == ElementType>
         super.init(observer: observer)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             forwardOn(.Next(value))
@@ -105,7 +105,9 @@ class TakeTimeSink<ElementType, O: ObserverType where O.E == ElementType>
     }
     
     func tick() {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
 
         forwardOn(.Completed)
         dispose()

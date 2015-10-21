@@ -38,11 +38,11 @@ class ThrottleSink<O: ObserverType>
         return StableCompositeDisposable.create(subscription, cancellable)
     }
 
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<Element>) {
+    func _synchronized_on(event: RxEvent<Element>) {
         switch event {
         case .Next(let element):
             _id = _id &+ 1
@@ -71,14 +71,15 @@ class ThrottleSink<O: ObserverType>
     }
     
     func propagate(currentId: UInt64) -> Disposable {
-        _lock.lock(); defer { _lock.unlock() } // {
-            let originalValue = _value
-
-            if let value = originalValue where _id == currentId {
-                _value = nil
-                forwardOn(.Next(value))
-            }
-        // }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
+        let originalValue = _value
+        
+        if let value = originalValue where _id == currentId {
+            _value = nil
+            forwardOn(.Next(value))
+        }
         return NopDisposable.instance
     }
 }

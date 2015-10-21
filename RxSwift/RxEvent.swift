@@ -15,7 +15,7 @@ Represents sequence event
 Sequence grammar:
 Next\* (Error | Completed)
 */
-public enum Event<Element> : CustomDebugStringConvertible {
+public enum RxEvent<Element> : CustomDebugStringConvertible {
     /**
     Next element is produced
     */
@@ -32,7 +32,7 @@ public enum Event<Element> : CustomDebugStringConvertible {
     case Completed
 }
 
-extension Event {
+extension RxEvent {
     /**
     - returns: Description of event
     */
@@ -48,9 +48,7 @@ extension Event {
             }
         }
     }
-}
 
-extension Event {
     /**
     - returns: Is `Completed` or `Error` event
     */
