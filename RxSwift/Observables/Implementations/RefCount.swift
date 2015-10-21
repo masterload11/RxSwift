@@ -24,7 +24,9 @@ class RefCountSink<CO: ConnectableObservableType, O: ObserverType where CO.E == 
     func run() -> Disposable {
         let subscription = _parent._source.subscribeSafe(self)
         
-        _parent._lock.lock(); defer { _parent._lock.unlock() } // {
+        if #available(iOS 8.0, *) {
+            _parent._lock.lock(); defer { _parent._lock.unlock() } // {
+        }
             if _parent._count == 0 {
                 _parent._count = 1
                 _parent._connectableSubscription = _parent._source.connect()
@@ -36,7 +38,9 @@ class RefCountSink<CO: ConnectableObservableType, O: ObserverType where CO.E == 
         
         return AnonymousDisposable {
             subscription.dispose()
-            self._parent._lock.lock(); defer { self._parent._lock.unlock() } // {
+            if #available(iOS 8.0, *) {
+                self._parent._lock.lock(); defer { self._parent._lock.unlock() } // {
+            }
                 if self._parent._count == 1 {
                     self._parent._connectableSubscription!.dispose()
                     self._parent._count = 0
@@ -52,7 +56,7 @@ class RefCountSink<CO: ConnectableObservableType, O: ObserverType where CO.E == 
         }
     }
 
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         switch event {
         case .Next:
             forwardOn(event)

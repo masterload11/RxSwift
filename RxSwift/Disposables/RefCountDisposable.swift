@@ -22,7 +22,9 @@ public class RefCountDisposable : DisposeBase, Cancelable {
      */
     public var disposed: Bool {
         get {
-            _lock.lock(); defer { _lock.unlock() }
+            if #available(iOS 8.0, *) {
+                _lock.lock(); defer { _lock.unlock() }
+            }
             return _disposable == nil
         }
     }

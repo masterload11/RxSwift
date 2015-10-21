@@ -20,7 +20,7 @@ class SingleAsyncSink<ElementType, O: ObserverType where O.E == ElementType> : S
         super.init(observer: observer)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             do {

@@ -15,7 +15,7 @@ Represents sequence event
 Sequence grammar:
 Next\* (Error | Completed)
 */
-public enum Event<Element> : CustomDebugStringConvertible {
+public enum RxEvent<Element> : CustomDebugStringConvertible {
     /**
     Next element is produced
     */
@@ -32,7 +32,7 @@ public enum Event<Element> : CustomDebugStringConvertible {
     case Completed
 }
 
-extension Event {
+extension RxEvent {
     /**
     - returns: Description of event
     */
@@ -55,7 +55,7 @@ Compares two events. They are equal if they are both the same member of `Event` 
 
 In case `Error` events are being compared, they are equal in case their `NSError` representations are equal (domain and code).
 */
-public func == <T: Equatable>(lhs: Event<T>, rhs: Event<T>) -> Bool {
+public func == <T: Equatable>(lhs: RxEvent<T>, rhs: RxEvent<T>) -> Bool {
     switch (lhs, rhs) {
     case (.Completed, .Completed): return true
     case (.Error(let e1), .Error(let e2)):
@@ -69,7 +69,7 @@ public func == <T: Equatable>(lhs: Event<T>, rhs: Event<T>) -> Bool {
     }
 }
 
-extension Event {
+extension RxEvent {
     /**
     - returns: Is `Completed` or `Error` event
     */

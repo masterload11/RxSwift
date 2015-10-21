@@ -28,7 +28,7 @@ public final class BehaviorSubject<Element>
     private var _disposed = false
     private var _value: Element
     private var _observers = Bag<AnyObserver<Element>>()
-    private var _stoppedEvent: Event<Element>?
+    private var _stoppedEvent: RxEvent<Element>?
 
     /**
     Indicates whether the subject has been disposed.
@@ -52,19 +52,20 @@ public final class BehaviorSubject<Element>
     - returns: Latest value.
     */
     public func value() throws -> Element {
-        _lock.lock(); defer { _lock.unlock() } // {
-            if _disposed {
-                throw RxError.Disposed(object: self)
-            }
-            
-            if let error = _stoppedEvent?.error {
-                // intentionally throw exception
-                throw error
-            }
-            else {
-                return _value
-            }
-        //}
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
+        if _disposed {
+            throw RxError.Disposed(object: self)
+        }
+        
+        if let error = _stoppedEvent?.error {
+            // intentionally throw exception
+            throw error
+        }
+        else {
+            return _value
+        }
     }
     
     /**
@@ -72,12 +73,14 @@ public final class BehaviorSubject<Element>
     
     - parameter event: Event to send to the observers.
     */
-    public func on(event: Event<E>) {
-        _lock.lock(); defer { _lock.unlock() }
+    public func on(event: RxEvent<E>) {
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_on(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         if _stoppedEvent != nil || _disposed {
             return
         }
@@ -99,7 +102,9 @@ public final class BehaviorSubject<Element>
     - returns: Disposable object that can be used to unsubscribe the observer from the subject.
     */
     public override func subscribe<O : ObserverType where O.E == Element>(observer: O) -> Disposable {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         return _synchronized_subscribe(observer)
     }
 
@@ -121,7 +126,9 @@ public final class BehaviorSubject<Element>
     }
 
     func synchronizedUnsubscribe(disposeKey: DisposeKey) {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_unsubscribe(disposeKey)
     }
 

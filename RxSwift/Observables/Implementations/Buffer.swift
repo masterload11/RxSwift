@@ -67,11 +67,11 @@ class BufferTimeCountSink<S: SchedulerType, Element, O: ObserverType where O.E =
         createTimer(windowID)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next(let element):
             _buffer.append(element)

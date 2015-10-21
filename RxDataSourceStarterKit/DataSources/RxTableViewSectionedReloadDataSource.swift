@@ -17,7 +17,7 @@ class RxTableViewSectionedReloadDataSource<S: SectionModelType> : RxTableViewSec
                                                                 , RxTableViewDataSourceType {
     typealias Element = [S]
     
-    func tableView(tableView: UITableView, observedEvent: Event<Element>) {
+    func tableView(tableView: UITableView, observedEvent: RxEvent<Element>) {
         switch observedEvent {
         case .Next(let element):
             setSections(element)

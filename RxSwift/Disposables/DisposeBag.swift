@@ -56,7 +56,9 @@ public class DisposeBag: DisposeBase {
     }
 
     private func _addDisposable(disposable: Disposable) -> Disposable? {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         if _disposed {
             return disposable
         }
@@ -78,8 +80,9 @@ public class DisposeBag: DisposeBase {
     }
 
     private func _dispose() -> [Disposable] {
-        _lock.lock(); defer { _lock.unlock() }
-
+//        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+//        }
         let disposables = _disposables
         
         _disposables.removeAll(keepCapacity: false)

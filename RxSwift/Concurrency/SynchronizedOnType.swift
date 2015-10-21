@@ -9,12 +9,14 @@
 import Foundation
 
 protocol SynchronizedOnType : class, ObserverType, Lock {
-    func _synchronized_on(event: Event<E>)
+    func _synchronized_on(event: RxEvent<E>)
 }
 
 extension SynchronizedOnType {
-    func synchronizedOn(event: Event<E>) {
-        lock(); defer { unlock() }
+    func synchronizedOn(event: RxEvent<E>) {
+        if #available(iOS 8.0, *) {
+            lock(); defer { unlock() }
+        }
         _synchronized_on(event)
     }
 }

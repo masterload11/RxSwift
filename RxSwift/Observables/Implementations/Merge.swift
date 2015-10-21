@@ -30,11 +30,11 @@ class MergeLimitedSinkIter<S: ObservableConvertibleType, O: ObserverType where S
         _disposeKey = disposeKey
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next:
             _parent.forwardOn(event)
@@ -108,11 +108,11 @@ class MergeLimitedSink<S: ObservableConvertibleType, O: ObserverType where S.E =
         }
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             let subscribe: Bool
@@ -243,14 +243,18 @@ class MergeSinkIter<SourceType, S: ObservableConvertibleType, O: ObserverType wh
         _disposeKey = disposeKey
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
-            _parent._lock.lock(); defer { _parent._lock.unlock() } // lock {
+            if #available(iOS 8.0, *) {
+                _parent._lock.lock(); defer { _parent._lock.unlock() } // lock {
+            }
                 _parent.forwardOn(.Next(value))
             // }
         case .Error(let error):
-            _parent._lock.lock(); defer { _parent._lock.unlock() } // lock {
+            if #available(iOS 8.0, *) {
+                _parent._lock.lock(); defer { _parent._lock.unlock() } // lock {
+            }
                 _parent.forwardOn(.Error(error))
                 _parent.dispose()
             // }
@@ -262,7 +266,9 @@ class MergeSinkIter<SourceType, S: ObservableConvertibleType, O: ObserverType wh
             // it will set observer to nil, and thus prevent further complete messages
             // to be sent, and thus preserving the sequence grammar.
             if _parent._stopped && _parent._group.count == MergeNoIterators {
-                _parent._lock.lock(); defer { _parent._lock.unlock() } // lock {
+                if #available(iOS 8.0, *) {
+                    _parent._lock.lock(); defer { _parent._lock.unlock() } // lock {
+                }
                     _parent.forwardOn(.Completed)
                     _parent.dispose()
                 // }
@@ -298,7 +304,7 @@ class MergeSink<SourceType, S: ObservableConvertibleType, O: ObserverType where 
         abstractMethod()
     }
     
-    func on(event: Event<SourceType>) {
+    func on(event: RxEvent<SourceType>) {
         switch event {
         case .Next(let element):
             if !subscribeNext {
@@ -313,21 +319,23 @@ class MergeSink<SourceType, S: ObservableConvertibleType, O: ObserverType where 
                 dispose()
             }
         case .Error(let error):
-            _lock.lock(); defer { _lock.unlock() } // lock {
-                forwardOn(.Error(error))
-                dispose()
-            // }
+            if #available(iOS 8.0, *) {
+                _lock.lock(); defer { _lock.unlock() }
+            }
+            forwardOn(.Error(error))
+            dispose()
         case .Completed:
-            _lock.lock(); defer { _lock.unlock() } // lock {
-                _stopped = true
-                if _group.count == MergeNoIterators {
-                    forwardOn(.Completed)
-                    dispose()
-                }
-                else {
-                    _sourceSubscription.dispose()
-                }
-            //}
+            if #available(iOS 8.0, *) {
+                _lock.lock(); defer { _lock.unlock() }
+            }
+            _stopped = true
+            if _group.count == MergeNoIterators {
+                forwardOn(.Completed)
+                dispose()
+            }
+            else {
+                _sourceSubscription.dispose()
+            }
         }
     }
     

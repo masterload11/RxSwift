@@ -74,7 +74,7 @@ extension ObservableType {
     - returns: The source sequence with the side-effecting behavior applied.
     */
     @warn_unused_result(message="http://git.io/rxs.uo")
-    public func doOn(eventHandler: (Event<E>) throws -> Void)
+    public func doOn(eventHandler: (RxEvent<E>) throws -> Void)
         -> Observable<E> {
         return Do(source: self.asObservable(), eventHandler: eventHandler)
     }

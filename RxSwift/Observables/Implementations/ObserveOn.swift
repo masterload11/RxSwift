@@ -51,7 +51,7 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
     // state
     var _state = ObserveOnState.Stopped
     var _observer: O?
-    var _queue = Queue<Event<E>>(capacity: 10)
+    var _queue = Queue<RxEvent<E>>(capacity: 10)
 
     let _scheduleDisposable = SerialDisposable()
     let _subscription = SingleAssignmentDisposable()
@@ -61,7 +61,7 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
         _observer = observer
     }
 
-    override func onCore(event: Event<E>) {
+    override func onCore(event:RxEvent<E>) {
         let shouldStart = _lock.calculateLocked { () -> Bool in
             self._queue.enqueue(event)
             
@@ -80,7 +80,7 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
     }
     
     func run(state: Void, recurse: Void -> Void) {
-        let (nextEvent, observer) = self._lock.calculateLocked { () -> (Event<E>?, O?) in
+        let (nextEvent, observer) = self._lock.calculateLocked { () -> (RxEvent<E>?, O?) in
             if self._queue.count > 0 {
                 return (self._queue.dequeue(), self._observer)
             }
@@ -108,7 +108,9 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
     }
 
     func _shouldContinue_synchronized() -> Bool {
-        _lock.lock(); defer { _lock.unlock() } // {
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() } // {
+        }
             if self._queue.count > 0 {
                 return true
             }
@@ -125,7 +127,9 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
         _subscription.dispose()
         _scheduleDisposable.dispose()
 
-        _lock.lock(); defer { _lock.unlock() } // {
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() } // {
+        }
             _observer = nil
         
         // }
