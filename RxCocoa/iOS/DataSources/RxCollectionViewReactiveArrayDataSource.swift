@@ -46,7 +46,7 @@ class RxCollectionViewReactiveArrayDataSourceSequenceWrapper<S: SequenceType> : 
         super.init(cellFactory: cellFactory)
     }
     
-    func collectionView(collectionView: UICollectionView, observedEvent: Event<S>) {
+    func collectionView(collectionView: UICollectionView, observedEvent: RxEvent<S>) {
         switch observedEvent {
         case .Next(let value):
             super.collectionView(collectionView, observedElements: Array(value))

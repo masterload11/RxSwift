@@ -33,7 +33,7 @@ class ObserveOnSerialDispatchQueueSink<O: ObserverType> : ObserverBase<O.E> {
         super.init()
     }
 
-    override func onCore(event: Event<E>) {
+    override func onCore(event: RxEvent<E>) {
         self.scheduler.schedule(()) { (_) -> Disposable in
             self.observer.on(event)
             

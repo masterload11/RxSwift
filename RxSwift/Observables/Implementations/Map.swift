@@ -24,7 +24,7 @@ class MapSink<SourceType, O : ObserverType> : Sink<O>, ObserverType {
         abstractMethod()
     }
 
-    func on(event: Event<SourceType>) {
+    func on(event: RxEvent<SourceType>) {
         let observer = super.observer
         
         switch event {

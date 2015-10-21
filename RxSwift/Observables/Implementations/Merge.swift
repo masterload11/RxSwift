@@ -23,7 +23,7 @@ class MergeSinkIter<S: ObservableConvertibleType, O: ObserverType where O.E == S
         self.disposeKey = disposeKey
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         parent.lock.performLocked {
             switch event {
             case .Next:
@@ -72,7 +72,7 @@ class MergeSink<S: ObservableConvertibleType, O: ObserverType where O.E == S.E> 
         return group
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             let innerSubscription = SingleAssignmentDisposable()
@@ -119,7 +119,7 @@ class MergeConcurrentSinkIter<S: ObservableConvertibleType, O: ObserverType wher
         self.disposeKey = disposeKey
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         parent.lock.performLocked {
             switch event {
             case .Next:
@@ -192,7 +192,7 @@ class MergeConcurrentSink<S: ObservableConvertibleType, O: ObserverType where S.
         }
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             let subscribe = lock.calculateLocked { () -> Bool in

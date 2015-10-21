@@ -19,7 +19,7 @@ class SubscribeOnSink<Ob: ObservableType, O: ObserverType where Ob.E == O.E> : S
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         observer?.on(event)
         
         if event.isStopEvent {

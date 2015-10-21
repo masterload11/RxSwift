@@ -16,7 +16,7 @@ class ShareReplay1<Element> : Observable<Element>, ObserverType {
 
     private var _subscription: Disposable?
     private var _element: Element?
-    private var _stopEvent = nil as Event<Element>?
+    private var _stopEvent = nil as RxEvent<Element>?
     private var _observers = Bag<AnyObserver<Element>>()
 
     init(source: Observable<Element>) {
@@ -55,7 +55,7 @@ class ShareReplay1<Element> : Observable<Element>, ObserverType {
         }
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         _lock.performLocked {
             if self._stopEvent != nil {
                 return

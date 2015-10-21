@@ -19,7 +19,7 @@ class DoSink<O: ObserverType> : Sink<O>, ObserverType {
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         do {
             try parent.eventHandler(event)
             observer?.on(event)
@@ -35,7 +35,7 @@ class DoSink<O: ObserverType> : Sink<O>, ObserverType {
 }
 
 class Do<Element> : Producer<Element> {
-    typealias EventHandler = Event<Element> throws -> Void
+    typealias EventHandler = RxEvent<Element> throws -> Void
     
     let source: Observable<Element>
     let eventHandler: EventHandler

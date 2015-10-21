@@ -40,7 +40,7 @@ class UsingSink<SourceType, ResourceType: Disposable, O: ObserverType where O.E 
         }
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case let .Next(value):
             observer?.onNext(value)

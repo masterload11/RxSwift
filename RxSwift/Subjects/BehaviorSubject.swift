@@ -44,7 +44,7 @@ public final class BehaviorSubject<Element> : Observable<Element>, SubjectType, 
     private var _disposed = false
     private var _value: Element
     private var observers = Bag<AnyObserver<Element>>()
-    private var stoppedEvent: Event<Element>?
+    private var stoppedEvent: RxEvent<Element>?
 
     /**
     Indicates whether the subject has been disposed.
@@ -90,7 +90,7 @@ public final class BehaviorSubject<Element> : Observable<Element>, SubjectType, 
     
     - parameter event: Event to send to the observers.
     */
-    public func on(event: Event<E>) {
+    public func on(event: RxEvent<E>) {
         lock.performLocked {
             if self.stoppedEvent != nil || _disposed {
                 return

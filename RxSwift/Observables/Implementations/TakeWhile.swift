@@ -21,7 +21,7 @@ class TakeWhileSink<ElementType, O: ObserverType where O.E == ElementType> : Sin
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         switch event {
         case .Next(let value):
             if !_running {
@@ -64,7 +64,7 @@ class TakeWhileSinkWithIndex<ElementType, O: ObserverType where O.E == ElementTy
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         switch event {
         case .Next(let value):
             if !_running {

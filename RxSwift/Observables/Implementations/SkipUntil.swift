@@ -32,7 +32,7 @@ class SkipUntilSinkOther<ElementType, Other, O: ObserverType where O.E == Elemen
         #endif
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next:
             _parent._lock.performLocked {
@@ -82,7 +82,7 @@ class SkipUntilSink<ElementType, Other, O: ObserverType where O.E == ElementType
         super.init(observer: observer, cancel: cancel)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         _lock.performLocked {
             switch event {
             case .Next:
