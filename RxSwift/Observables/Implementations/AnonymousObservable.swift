@@ -20,7 +20,7 @@ class AnonymousObservableSink<O: ObserverType> : Sink<O>, ObserverType {
         super.init(observer: observer)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next:
             if _isStopped == 1 {

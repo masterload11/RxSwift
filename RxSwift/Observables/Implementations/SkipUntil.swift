@@ -30,11 +30,11 @@ class SkipUntilSinkOther<ElementType, Other, O: ObserverType where O.E == Elemen
         #endif
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next:
             _parent._forwardElements = true
@@ -75,11 +75,11 @@ class SkipUntilSink<ElementType, Other, O: ObserverType where O.E == ElementType
         super.init(observer: observer)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next:
             if _forwardElements {

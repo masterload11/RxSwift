@@ -30,11 +30,11 @@ class MergeLimitedSinkIter<S: ObservableConvertibleType, O: ObserverType where S
         _disposeKey = disposeKey
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next:
             _parent.forwardOn(event)
@@ -108,11 +108,11 @@ class MergeLimitedSink<S: ObservableConvertibleType, O: ObserverType where S.E =
         }
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             let subscribe: Bool
@@ -243,7 +243,7 @@ class MergeSinkIter<SourceType, S: ObservableConvertibleType, O: ObserverType wh
         _disposeKey = disposeKey
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
             _parent._lock.lock(); defer { _parent._lock.unlock() } // lock {
@@ -298,7 +298,7 @@ class MergeSink<SourceType, S: ObservableConvertibleType, O: ObserverType where 
         abstractMethod()
     }
     
-    func on(event: Event<SourceType>) {
+    func on(event: RxEvent<SourceType>) {
         switch event {
         case .Next(let element):
             if !subscribeNext {

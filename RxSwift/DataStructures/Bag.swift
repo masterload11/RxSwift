@@ -266,7 +266,7 @@ extension Bag where T: ObserverType {
 
      - parameter action: Enumeration closure.
      */
-    public func on(event: Event<T.E>) {
+    public func on(event: RxEvent<T.E>) {
         if _onlyFastPath {
             _value0?.on(event)
             return

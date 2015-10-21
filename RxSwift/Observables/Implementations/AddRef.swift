@@ -15,7 +15,7 @@ class AddRefSink<O: ObserverType> : Sink<O>, ObserverType {
         super.init(observer: observer)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         switch event {
         case .Next(_):
             forwardOn(event)
@@ -27,7 +27,7 @@ class AddRefSink<O: ObserverType> : Sink<O>, ObserverType {
 }
 
 class AddRef<Element> : Producer<Element> {
-    typealias EventHandler = Event<Element> throws -> Void
+    typealias EventHandler = RxEvent<Element> throws -> Void
     
     private let _source: Observable<Element>
     private let _refCount: RefCountDisposable

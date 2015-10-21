@@ -38,11 +38,11 @@ class ThrottleSink<O: ObserverType, Scheduler: SchedulerType>
         return StableCompositeDisposable.create(subscription, cancellable)
     }
 
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<Element>) {
+    func _synchronized_on(event: RxEvent<Element>) {
         switch event {
         case .Next(let element):
             _id = _id &+ 1

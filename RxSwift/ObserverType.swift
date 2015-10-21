@@ -22,7 +22,7 @@ public protocol ObserverType {
     
     - parameter event: Event that occured.
     */
-    func on(event: Event<E>)
+    func on(event: RxEvent<E>)
 }
 
 /**

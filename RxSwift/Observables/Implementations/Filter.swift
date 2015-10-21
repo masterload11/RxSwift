@@ -21,7 +21,7 @@ class FilterSink<O : ObserverType>: Sink<O>, ObserverType {
         super.init(observer: observer)
     }
     
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         switch event {
             case .Next(let value):
                 do {

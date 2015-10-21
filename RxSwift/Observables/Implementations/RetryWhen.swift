@@ -20,7 +20,7 @@ class RetryTriggerSink<S: SequenceType, O: ObserverType, TriggerObservable: Obse
         _parent = parent
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next:
             _parent._parent._lastError = nil
@@ -48,7 +48,7 @@ class RetryWhenSequenceSinkIter<S: SequenceType, O: ObserverType, TriggerObserva
         _parent = parent
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         switch event {
         case .Next:
             _parent.forwardOn(event)

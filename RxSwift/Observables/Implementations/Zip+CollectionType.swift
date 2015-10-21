@@ -38,7 +38,7 @@ class ZipCollectionTypeSink<C: CollectionType, R, O: ObserverType where C.Genera
         super.init(observer: observer)
     }
     
-    func on(event: Event<SourceElement>, atIndex: Int) {
+    func on(event: RxEvent<SourceElement>, atIndex: Int) {
         _lock.lock(); defer { _lock.unlock() } // {
             switch event {
             case .Next(let element):

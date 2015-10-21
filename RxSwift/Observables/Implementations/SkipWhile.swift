@@ -19,7 +19,7 @@ class SkipWhileSink<ElementType, O: ObserverType where O.E == ElementType> : Sin
         super.init(observer: observer)
     }
 
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         switch event {
         case .Next(let value):
             if !_running {
@@ -56,7 +56,7 @@ class SkipWhileSinkWithIndex<ElementType, O: ObserverType where O.E == ElementTy
         super.init(observer: observer)
     }
 
-    func on(event: Event<Element>) {
+    func on(event: RxEvent<Element>) {
         switch event {
         case .Next(let value):
             if !_running {
