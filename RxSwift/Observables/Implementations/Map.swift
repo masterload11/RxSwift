@@ -21,7 +21,7 @@ class MapSink<SourceType, O : ObserverType> : Sink<O>, ObserverType {
         super.init(observer: observer)
     }
 
-    func on(event: Event<SourceType>) {
+    func on(event: RxEvent<SourceType>) {
         switch event {
         case .Next(let element):
             do {
@@ -58,7 +58,7 @@ class MapWithIndexSink<SourceType, O : ObserverType> : Sink<O>, ObserverType {
         super.init(observer: observer)
     }
 
-    func on(event: Event<SourceType>) {
+    func on(event: RxEvent<SourceType>) {
         switch event {
         case .Next(let element):
             do {

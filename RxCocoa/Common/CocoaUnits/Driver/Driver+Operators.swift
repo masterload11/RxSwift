@@ -93,7 +93,7 @@ extension DriverConvertibleType {
     - returns: The source sequence with the side-effecting behavior applied.
     */
     @warn_unused_result(message="http://git.io/rxs.uo")
-    public func doOn(eventHandler: (Event<E>) -> Void)
+    public func doOn(eventHandler: (RxEvent<E>) -> Void)
         -> Driver<E> {
         let source = self.asObservable()
                 .doOn(eventHandler)

@@ -31,7 +31,7 @@ class DeferredSink<O: ObserverType> : Sink<O>, ObserverType {
         }
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         forwardOn(event)
         
         switch event {

@@ -20,7 +20,7 @@ class ToArraySink<SourceType, O: ObserverType where O.E == [SourceType]> : Sink<
         super.init(observer: observer)
     }
     
-    func on(event: Event<SourceType>) {
+    func on(event: RxEvent<SourceType>) {
         switch event {
         case .Next(let value):
             self._list.append(value)

@@ -38,11 +38,11 @@ class WithLatestFromSink<FirstType, SecondType, ResultType, O: ObserverType wher
         return StableCompositeDisposable.create(fstSubscription, sndSubscription)
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case let .Next(value):
             guard let latest = _latest else { return }
@@ -86,11 +86,11 @@ class WithLatestFromSecond<FirstType, SecondType, ResultType, O: ObserverType wh
         _disposable = disposable
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case let .Next(value):
             _parent._latest = value

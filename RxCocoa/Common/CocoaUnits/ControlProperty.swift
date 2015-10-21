@@ -78,7 +78,7 @@ public struct ControlProperty<PropertyType> : ControlPropertyType {
     - In case error is received, DEBUG buids raise fatal error, RELEASE builds log event to standard output.
     - In case sequence completes, nothing happens.
     */
-    public func on(event: Event<E>) {
+    public func on(event: RxEvent<E>) {
         switch event {
         case .Error(let error):
             bindingErrorToInterface(error)

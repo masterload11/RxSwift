@@ -23,7 +23,7 @@ final class ShareReplay1<Element>
     private var _connection: SingleAssignmentDisposable?
     private var _element: Element?
     private var _stopped = false
-    private var _stopEvent = nil as Event<Element>?
+    private var _stopEvent = nil as RxEvent<Element>?
     private var _observers = Bag<AnyObserver<Element>>()
 
     init(source: Observable<Element>) {
@@ -76,12 +76,12 @@ final class ShareReplay1<Element>
         }
     }
 
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         _lock.lock(); defer { _lock.unlock() }
         _synchronized_on(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         if _stopped {
             return
         }

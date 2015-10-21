@@ -35,7 +35,7 @@ class SwitchSink<SourceType, S: ObservableConvertibleType, O: ObserverType where
         return StableCompositeDisposable.create(_subscriptions, _innerSubscription)
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
@@ -43,7 +43,7 @@ class SwitchSink<SourceType, S: ObservableConvertibleType, O: ObserverType where
         abstractMethod()
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next(let element):
             do {
@@ -100,11 +100,11 @@ class SwitchSinkIter<SourceType, S: ObservableConvertibleType, O: ObserverType w
         self._self = _self
     }
     
-    func on(event: Event<E>) {
+    func on(event: RxEvent<E>) {
         synchronizedOn(event)
     }
 
-    func _synchronized_on(event: Event<E>) {
+    func _synchronized_on(event: RxEvent<E>) {
         switch event {
         case .Next: break
         case .Error, .Completed:
