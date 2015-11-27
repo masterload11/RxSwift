@@ -105,7 +105,9 @@ class TakeTimeSink<ElementType, S: SchedulerType, O: ObserverType where O.E == E
     }
     
     func tick() {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
 
         forwardOn(.Completed)
         dispose()

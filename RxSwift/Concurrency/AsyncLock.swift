@@ -33,16 +33,22 @@ class AsyncLock<I: InvocableType>
 
     // lock {
     func lock() {
-        _lock.lock()
+        if #available(iOS 8.0, *) {
+            _lock.lock()
+        }
     }
 
     func unlock() {
-        _lock.unlock()
+        if #available(iOS 8.0, *) {
+            _lock.unlock()
+        }
     }
     // }
 
     private func enqueue(action: I) -> I? {
-        _lock.lock(); defer { _lock.unlock() } // {
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() } // {
+        }
             if _hasFaulted {
                 return nil
             }
@@ -59,7 +65,9 @@ class AsyncLock<I: InvocableType>
     }
 
     private func dequeue() -> I? {
-        _lock.lock(); defer { _lock.unlock() } // {
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() } // {
+        }
             if _queue.count > 0 {
                 return _queue.dequeue()
             }

@@ -32,13 +32,19 @@ public class Variable<Element> : ObservableType {
     */
     public var value: E {
         get {
-            _lock.lock(); defer { _lock.unlock() }
+            if #available(iOS 8.0, *) {
+                _lock.lock(); defer { _lock.unlock() } // {
+            }
             return _value
         }
         set(newValue) {
-            _lock.lock()
+            if #available(iOS 8.0, *) {
+                _lock.lock()
+            }
             _value = newValue
-            _lock.unlock()
+            if #available(iOS 8.0, *) {
+                _lock.unlock()
+            }
 
             _subject.on(.Next(newValue))
         }

@@ -39,7 +39,9 @@ class ZipCollectionTypeSink<C: CollectionType, R, O: ObserverType where C.Genera
     }
     
     func on(event: RxEvent<SourceElement>, atIndex: Int) {
-        _lock.lock(); defer { _lock.unlock() } // {
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
             switch event {
             case .Next(let element):
                 _values[atIndex].enqueue(element)

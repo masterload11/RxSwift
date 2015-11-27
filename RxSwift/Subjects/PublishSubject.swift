@@ -53,7 +53,9 @@ final public class PublishSubject<Element>
     - parameter event: Event to send to the observers.
     */
     public func on(event: RxEvent<Element>) {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_on(event)
     }
 
@@ -82,7 +84,9 @@ final public class PublishSubject<Element>
     - returns: Disposable object that can be used to unsubscribe the observer from the subject.
     */
     public override func subscribe<O : ObserverType where O.E == Element>(observer: O) -> Disposable {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         return _synchronized_subscribe(observer)
     }
 
@@ -102,7 +106,9 @@ final public class PublishSubject<Element>
     }
 
     func synchronizedUnsubscribe(disposeKey: DisposeKey) {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_unsubscribe(disposeKey)
     }
 
@@ -121,7 +127,9 @@ final public class PublishSubject<Element>
     Unsubscribe all observers and release resources.
     */
     public func dispose() {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_dispose()
     }
 

@@ -73,7 +73,9 @@ public class SerialDisposable : DisposeBase, Cancelable {
     }
 
     private func _dispose() -> Disposable? {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         if _disposed {
             return nil
         }
