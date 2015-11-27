@@ -246,7 +246,9 @@ class MergeSinkIter<SourceType, S: ObservableConvertibleType, O: ObserverType wh
     func on(event: RxEvent<E>) {
         switch event {
         case .Next(let value):
-            _parent._lock.lock(); defer { _parent._lock.unlock() } // lock {
+            if #available(iOS 8.0, *) {
+                _parent._lock.lock(); defer { _parent._lock.unlock() } // lock {
+            }
                 _parent.forwardOn(.Next(value))
             // }
         case .Error(let error):
@@ -318,7 +320,9 @@ class MergeSink<SourceType, S: ObservableConvertibleType, O: ObserverType where 
                 dispose()
             // }
         case .Completed:
-            _lock.lock(); defer { _lock.unlock() } // lock {
+            if #available(iOS 8.0, *) {
+                _lock.lock(); defer { _lock.unlock() } // lock {
+            }
                 _stopped = true
                 if _group.count == MergeNoIterators {
                     forwardOn(.Completed)

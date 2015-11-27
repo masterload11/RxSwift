@@ -14,10 +14,14 @@ protocol LockOwnerType : class, Lock {
 
 extension LockOwnerType {
     func lock() {
-        _lock.lock()
+        if #available(iOS 8.0, *) {
+            _lock.lock()
+        }
     }
 
     func unlock() {
-        _lock.unlock()
+        if #available(iOS 8.0, *) {
+            _lock.unlock()
+        }
     }
 }
