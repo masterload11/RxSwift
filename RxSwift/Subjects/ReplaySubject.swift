@@ -88,7 +88,9 @@ class ReplayBufferBase<Element>
     }
     
     override func on(event: RxEvent<Element>) {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_on(event)
     }
 
@@ -115,7 +117,9 @@ class ReplayBufferBase<Element>
     }
     
     override func subscribe<O : ObserverType where O.E == Element>(observer: O) -> Disposable {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         return _synchronized_subscribe(observer)
     }
 
@@ -139,7 +143,9 @@ class ReplayBufferBase<Element>
     }
 
     func synchronizedUnsubscribe(disposeKey: DisposeKey) {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_unsubscribe(disposeKey)
     }
 
@@ -158,7 +164,9 @@ class ReplayBufferBase<Element>
     }
 
     func synchronizedDispose() {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         _synchronized_dispose()
     }
 

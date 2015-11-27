@@ -108,7 +108,9 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
     }
 
     func _shouldContinue_synchronized() -> Bool {
-        _lock.lock(); defer { _lock.unlock() } // {
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() } // {
+        }
             if self._queue.count > 0 {
                 return true
             }
@@ -125,7 +127,9 @@ class ObserveOnSink<O: ObserverType> : ObserverBase<O.E> {
         _subscription.dispose()
         _scheduleDisposable.dispose()
 
-        _lock.lock(); defer { _lock.unlock() } // {
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() } // {
+        }
             _observer = nil
         
         // }

@@ -44,7 +44,9 @@ public class SingleAssignmentDisposable : DisposeBase, Disposable, Cancelable {
     */
     public var disposable: Disposable {
         get {
-            _lock.lock(); defer { _lock.unlock() }
+            if #available(iOS 8.0, *) {
+                _lock.lock(); defer { _lock.unlock() }
+            }
             return _disposable ?? NopDisposable.instance
         }
         set {
@@ -79,7 +81,9 @@ public class SingleAssignmentDisposable : DisposeBase, Disposable, Cancelable {
     }
 
     private func _dispose() -> Disposable? {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
 
         _disposed = true
         let disposable = _disposable

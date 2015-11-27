@@ -21,7 +21,9 @@ public class CompositeDisposable : DisposeBase, Disposable, Cancelable {
 
     public var disposed: Bool {
         get {
-            _lock.lock(); defer { _lock.unlock() }
+            if #available(iOS 8.0, *) {
+                _lock.lock(); defer { _lock.unlock() }
+            }
             return _disposables == nil
         }
     }
@@ -73,8 +75,9 @@ public class CompositeDisposable : DisposeBase, Disposable, Cancelable {
     }
 
     private func _addDisposable(disposable: Disposable) -> DisposeKey? {
-        _lock.lock(); defer { _lock.unlock() }
-
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         return _disposables?.insert(disposable)
     }
     
@@ -83,7 +86,9 @@ public class CompositeDisposable : DisposeBase, Disposable, Cancelable {
     */
     public var count: Int {
         get {
-            _lock.lock(); defer { _lock.unlock() }
+            if #available(iOS 8.0, *) {
+                _lock.lock(); defer { _lock.unlock() }
+            }
             return _disposables?.count ?? 0
         }
     }
@@ -98,7 +103,9 @@ public class CompositeDisposable : DisposeBase, Disposable, Cancelable {
     }
 
     private func _removeDisposable(disposeKey: DisposeKey) -> Disposable? {
-        _lock.lock(); defer { _lock.unlock() }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         return _disposables?.removeKey(disposeKey)
     }
     
@@ -112,8 +119,9 @@ public class CompositeDisposable : DisposeBase, Disposable, Cancelable {
     }
 
     private func _dispose() -> Bag<Disposable>? {
-        _lock.lock(); defer { _lock.unlock() }
-
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
         let disposeBag = _disposables
         _disposables = nil
 

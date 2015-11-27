@@ -71,14 +71,15 @@ class ThrottleSink<O: ObserverType, Scheduler: SchedulerType>
     }
     
     func propagate(currentId: UInt64) -> Disposable {
-        _lock.lock(); defer { _lock.unlock() } // {
-            let originalValue = _value
-
-            if let value = originalValue where _id == currentId {
-                _value = nil
-                forwardOn(.Next(value))
-            }
-        // }
+        if #available(iOS 8.0, *) {
+            _lock.lock(); defer { _lock.unlock() }
+        }
+        let originalValue = _value
+        
+        if let value = originalValue where _id == currentId {
+            _value = nil
+            forwardOn(.Next(value))
+        }
         return NopDisposable.instance
     }
 }

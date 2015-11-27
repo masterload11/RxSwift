@@ -62,7 +62,7 @@ Time and space complexity of insertion an deletion is O(n).
 
 It is suitable for storing small number of elements.
 */
-public struct Bag<T> : CustomDebugStringConvertible {
+public class Bag<T> : CustomDebugStringConvertible {
     /**
     Type of identifier for inserted elements.
     */
@@ -104,7 +104,7 @@ public struct Bag<T> : CustomDebugStringConvertible {
     - parameter element: Element to insert.
     - returns: Key that can be used to remove element from bag.
     */
-    public mutating func insert(element: T) -> BagKey {
+    public func insert(element: T) -> BagKey {
         _nextKey = _nextKey &+ 1
 
 #if DEBUG
@@ -160,7 +160,7 @@ public struct Bag<T> : CustomDebugStringConvertible {
     /**
     Removes all elements from bag and clears capacity.
     */
-    public mutating func removeAll() {
+    public func removeAll() {
         _key0 = nil
         _value0 = nil
         _key1 = nil
@@ -176,7 +176,7 @@ public struct Bag<T> : CustomDebugStringConvertible {
     - parameter key: Key that identifies element to remove from bag.
     - returns: Element that bag contained, or nil in case element was already removed.
     */
-    public mutating func removeKey(key: BagKey) -> T? {
+    public func removeKey(key: BagKey) -> T? {
         if _key0 == key {
             _key0 = nil
             let value = _value0!
