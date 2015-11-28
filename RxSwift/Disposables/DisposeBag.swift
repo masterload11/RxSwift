@@ -92,6 +92,8 @@ public class DisposeBag: DisposeBase {
     }
     
     deinit {
-        dispose()
+        if #available(iOS 8.0, *) {
+            dispose()
+        }
     }
 }

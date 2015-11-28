@@ -14,7 +14,9 @@ protocol SynchronizedOnType : class, ObserverType, Lock {
 
 extension SynchronizedOnType {
     func synchronizedOn(event: RxEvent<E>) {
-        lock(); defer { unlock() }
+        if #available(iOS 8.0, *) {
+            lock(); defer { unlock() }
+        }
         _synchronized_on(event)
     }
 }
